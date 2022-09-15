@@ -1,13 +1,12 @@
 name: Fly Deploy
 on: [push]
-env:
-  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 jobs:
   deploy:
     name: Deploy app
     runs-on: ubuntu-latest
     steps:
-      - run: echo "hello!"
-        # - uses: actions/checkout@v2
-        # - uses: superfly/flyctl-actions/setup-flyctl@master
-        # - run: flyctl deploy --remote-only
+      - uses: actions/checkout@v3
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
